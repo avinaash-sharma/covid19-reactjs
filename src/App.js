@@ -60,19 +60,17 @@ export default function App() {
 
   const date = new Date(parseInt(latest.updated));
   const lastUpdated = date.toString();
-  const filteredValue = latestCountriesStatus.filter(item => {
-    return searchCountries !== "" ? item.country === searchCountries : item;
-  })
+  const filteredValue = latestCountriesStatus.filter((item) => {
+    return searchCountries !== ""
+      ? item.country.includes(searchCountries)
+      : item;
+  });
   const countries = filteredValue.map((data) => {
     return (
       <div className={classes.cardGroup} key={data.country}>
         <BorderWrapper>
           <div className="card">
-            <img
-              src={data.countryInfo.flag}
-              className="card-img-top"
-              alt="..."
-            />
+            <img src={data.countryInfo.flag} className="card-img-top" alt="?" />
             <div className="card-body">
               <h5 className="card-title">{data.country}</h5>
               <p className="card-text">Cases : {data.cases}</p>
@@ -99,62 +97,82 @@ export default function App() {
     },
   ];
   return (
-    <div className={classes.container}>
-      <div className={classes.dicContainer}>
-        <div style={{ padding: 20 }}>
-          <Card style={{ backgroundColor: "#2475B0" }} className={classes.root}>
-            <CardContent className={classes.CardContiner}>
-              <div>
-                <h1>Cases</h1>
-                <h3>{latest.cases}</h3>
-                <h5>
-                  Last Updated{" "}
-                  {lastUpdated === "Invalid Date" ? "" : lastUpdated}
-                </h5>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div style={{ padding: 20 }}>
-          <Card style={{ backgroundColor: "#B83227" }} className={classes.root}>
-            <CardContent className={classes.CardContiner}>
-              <div>
-                <h1>Deaths</h1>
-                <h3>{latest.deaths}</h3>
-                <h5>
-                  Last Updated{" "}
-                  {lastUpdated === "Invalid Date" ? "" : lastUpdated}
-                </h5>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div style={{ padding: 20 }}>
-          <Card style={{ backgroundColor: "#26ae60" }} className={classes.root}>
-            <CardContent className={classes.CardContiner}>
-              <div>
-                <h1>Recovered</h1>
-                <h3>{latest.recovered}</h3>
-                <h5>
-                  Last Updated{" "}
-                  {lastUpdated === "Invalid Date" ? "" : lastUpdated}
-                </h5>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+    <div>
+      <div style={{ justifyContent: "center", display: "flex" }}>
+        <h2>World Live Covid-19 Counter</h2>
       </div>
-      <TextField
-        id="outlined-search"
-        fullWidth
-        label="Search field"
-        type="search"
-        variant="outlined"
-        onChange={event => setSearchCountries(event.target.value)}
-      />
-      <Columns style={{ display: "flex" }} queries={queries}>
-        {countries}
-      </Columns>
+      <div style={{ justifyContent: "center", display: "flex" }}>
+        <h4>
+          Last Updated {lastUpdated === "Invalid Date" ? "" : lastUpdated}
+        </h4>
+      </div>
+      
+      <div className={classes.container}>
+        <div className={classes.dicContainer}>
+          <div style={{ padding: 20 }}>
+            <Card
+              style={{ backgroundColor: "#2475B0" }}
+              className={classes.root}
+            >
+              <CardContent className={classes.CardContiner}>
+                <div>
+                  <h1>Cases</h1>
+                  <h3>{latest.cases}</h3>
+                  <h5>
+                    Last Updated{" "}
+                    {lastUpdated === "Invalid Date" ? "" : lastUpdated}
+                  </h5>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div style={{ padding: 20 }}>
+            <Card
+              style={{ backgroundColor: "#B83227" }}
+              className={classes.root}
+            >
+              <CardContent className={classes.CardContiner}>
+                <div>
+                  <h1>Deaths</h1>
+                  <h3>{latest.deaths}</h3>
+                  <h5>
+                    Last Updated{" "}
+                    {lastUpdated === "Invalid Date" ? "" : lastUpdated}
+                  </h5>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div style={{ padding: 20 }}>
+            <Card
+              style={{ backgroundColor: "#26ae60" }}
+              className={classes.root}
+            >
+              <CardContent className={classes.CardContiner}>
+                <div>
+                  <h1>Recovered</h1>
+                  <h3>{latest.recovered}</h3>
+                  <h5>
+                    Last Updated{" "}
+                    {lastUpdated === "Invalid Date" ? "" : lastUpdated}
+                  </h5>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+        <TextField
+          id="outlined-search"
+          fullWidth
+          label="Search field"
+          type="search"
+          variant="outlined"
+          onChange={(event) => setSearchCountries(event.target.value)}
+        />
+        <Columns style={{ display: "flex" }} queries={queries}>
+          {countries}
+        </Columns>
+      </div>
     </div>
   );
 }
