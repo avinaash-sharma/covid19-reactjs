@@ -76,8 +76,11 @@ export default function App() {
             <div className="card-body">
               <h5 className="card-title">{data.country}</h5>
               <p className="card-text">Cases : {data.cases}</p>
+              <p className="card-text">Deaths : {data.deaths}</p>
+              <p className="card-text">Recovered : {data.recovered}</p>
+              <p className="card-text">Active : {data.active}</p>
               <p className="card-text">
-                <small className="text-muted">Last updated </small>
+                <small className="text-muted">Last updated {data.updated === "" ? "" : data.updated}</small>
               </p>
             </div>
           </div>
