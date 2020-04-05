@@ -79,9 +79,8 @@ export default function App() {
               <p className="card-text">Deaths : {data.deaths}</p>
               <p className="card-text">Recovered : {data.recovered}</p>
               <p className="card-text">Active : {data.active}</p>
-              <p className="card-text">
-                <small className="text-muted">Last updated {data.updated === "" ? "" : data.updated}</small>
-              </p>
+              <p className="card-text">Today's Case : {data.todayCases}</p>
+              <p className="card-text">Today's Death : {data.todayDeaths}</p>
             </div>
           </div>
         </BorderWrapper>
