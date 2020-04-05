@@ -66,7 +66,7 @@ export default function App() {
   const countries = filteredValue.map((data) => {
     return (
       <div className={classes.cardGroup} key={data.country}>
-        <BorderWrapper style={{ backgroundColor: "#67E6DC" }}>
+        <BorderWrapper>
           <div className="card">
             <img
               src={data.countryInfo.flag}
