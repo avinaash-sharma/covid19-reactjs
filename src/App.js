@@ -37,15 +37,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function App() {
+ 
   const [latest, setStatus] = useState([]);
   const [latestCountriesStatus, setCountries] = useState([]);
   const [searchCountries, setSearchCountries] = useState("");
   useEffect(() => {
     axios
       .all([
-        axios.get("https://corona.lmao.ninja/all"),
-        axios.get("https://corona.lmao.ninja/countries"),
+        axios.get("https://corona.lmao.ninja/v2/all?yesterday=false"),
+        axios.get("https://corona.lmao.ninja/v2/countries"),
       ])
       .then((responseArray) => {
         setStatus(responseArray[0].data);
@@ -56,7 +58,7 @@ export default function App() {
       });
   }, []);
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+ 
 
   const date = new Date(parseInt(latest.updated));
   const lastUpdated = date.toString();
@@ -65,13 +67,14 @@ export default function App() {
       ? item.country.includes(searchCountries)
       : item;
   });
+  
   const countries = filteredValue.map((data) => {
     return (
       <div className={classes.cardGroup} key={data.country}>
         <BorderWrapper>
           <div className="card">
             <img src={data.countryInfo.flag} className="card-img-top" alt="?" />
-            <div className="card-body">
+            <div className="card-body" >
               <h5 className="card-title">{data.country}</h5>
               <p className="card-text">Cases : {data.cases}</p>
               <p className="card-text">Deaths : {data.deaths}</p>
